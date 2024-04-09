@@ -1,0 +1,451 @@
+{
+	"info": {
+		"_postman_id": "f5cd2465-226c-40c6-893a-6d05a8c0cf93",
+		"name": "Pizza Order API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19411892"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\": \"Gabriel\",\r\n    \"lastname\": \"Clemente\",\r\n    \"username\": \"gabrielfidelles\",\r\n    \"email\": \"teste@teste.com.br\",\r\n    \"password\": \"teste\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL_ENV_URI}}/api/v1/auth/register",
+							"host": [
+								"{{LOCAL_ENV_URI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Authenticate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if(pm.response.code === 200) {\r",
+									"    let res = pm.response.json();\r",
+									"    pm.environment.set('access_token', res.access_token);\r",
+									"    pm.environment.set('refresh_token', res.refresh_token);   \r",
+									"    console.log(\"Sucesso ao definir access_token! ✅\", res.access_token);\r",
+									"} else {\r",
+									"    console.log(\"Erro ao definir access_token! ✖️\");\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"teste@teste.com.br\",\r\n    \"password\": \"teste\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL_ENV_URI}}/api/v1/auth/authenticate",
+							"host": [
+								"{{LOCAL_ENV_URI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customer",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"aurea\",\r\n    \"cpf\": \"67566756754\",\r\n    \"telephone\": \"333333333\",\r\n    \"email\": \"aurea@gmail.com\",\r\n    \"address\": {\r\n        \"code\": \"22\",\r\n        \"street\": \"22\",\r\n        \"district\": \"sao bento\",\r\n        \"city\": \"sp\",\r\n        \"number\": \"22\",\r\n        \"complement\": \"nem tanto\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL_ENV_URI}}/customers",
+							"host": [
+								"{{LOCAL_ENV_URI}}"
+							],
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL_ENV_URI}}/customers",
+							"host": [
+								"{{LOCAL_ENV_URI}}"
+							],
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get by telephone",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL_ENV_URI}}/customers/111111111111",
+							"host": [
+								"{{LOCAL_ENV_URI}}"
+							],
+							"path": [
+								"customers",
+								"111111111111"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete by telephone",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{LOCAL_ENV_URI}}/customers/1332132323",
+							"host": [
+								"{{LOCAL_ENV_URI}}"
+							],
+							"path": [
+								"customers",
+								"1332132323"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"gigiiiii@gmail.com\",\r\n    \"telephone\": \"111111111111\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL_ENV_URI}}/customers",
+							"host": [
+								"{{LOCAL_ENV_URI}}"
+							],
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Drinks",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Coca Cola\",\r\n    \"sizeValues\": {\r\n        \"size\": \"500 ml\",\r\n        \"value\": \"10,80\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL_ENV_URI}}/drinks",
+							"host": [
+								"{{LOCAL_ENV_URI}}"
+							],
+							"path": [
+								"drinks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL_ENV_URI}}/drinks/2",
+							"host": [
+								"{{LOCAL_ENV_URI}}"
+							],
+							"path": [
+								"drinks",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL_ENV_URI}}/drinks",
+							"host": [
+								"{{LOCAL_ENV_URI}}"
+							],
+							"path": [
+								"drinks"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pizzas",
+			"item": [
+				{
+					"name": "Get all",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL_ENV_URI}}/pizza",
+							"host": [
+								"{{LOCAL_ENV_URI}}"
+							],
+							"path": [
+								"pizza"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL_ENV_URI}}/pizza/6",
+							"host": [
+								"{{LOCAL_ENV_URI}}"
+							],
+							"path": [
+								"pizza",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update by taste",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"taste\": \"Bauru \",\r\n    \"sizeValues\": {\r\n        \"size\": \"Pequena\",\r\n        \"value\": \"17,80\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL_ENV_URI}}/pizza",
+							"host": [
+								"{{LOCAL_ENV_URI}}"
+							],
+							"path": [
+								"pizza"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{access_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "LOCAL_ENV_URI",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}
